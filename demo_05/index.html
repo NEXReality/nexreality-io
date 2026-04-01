@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Watch - NEX Reality</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Watch - NEX Reality">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="qrcode.js"></script>
+    <link type="text/css" href="./styles.css" rel="stylesheet"/>
+    
+  </head>
+  <body>
+    <div class="container">
+    <!-- <model-viewer> HTML element -->
+    <model-viewer src="watch_02.glb" id="watch" 
+    max-camera-orbit="auto 180deg auto" 
+    ar ar-modes="webxr scene-viewer quick-look"
+    camera-controls poster="poster.webp" 
+    shadow-intensity="1" 
+    autoplay 
+    min-camera-orbit="auto auto 0.2593m" 
+    camera-orbit="-1102deg 89.09deg 0.2593m" 
+    ondblclick="resetCamera()">
+
+    <div class="progress-bar hide" slot="progress-bar">
+      <div class="update-bar"></div>
+    </div>
+    <button slot="ar-button" id="ar-button" style="
+      font-family: Montserrat, sans-serif;
+      line-height: 37px;
+      text-align: center;
+      justify-content: center;
+      display: -webkit-flex;
+      font-size: 15px;
+      width: 40px;
+      cursor: pointer;
+      color: #70757a;
+      background-color: #fff;
+      border-radius: 24px;
+      box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.20000000298023224);
+      border-width : 0;
+      position: absolute;
+      top: 10px;
+      right: 10px;">AR</button>
+    <div id="ar-prompt">
+      <img src="ar_hand_prompt.png">
+    </div>
+    </model-viewer> 
+
+      <div class="mainpagectrls-mainpagectrls">
+        <button title="Colors" class="iconbox" type="button" onclick="showVariantsStraps()">
+          <img src="img/color.svg" class="icon" />
+        </button>
+        <button class="iconbox" type="button" onclick="goZoomNew('+')">
+          <img src="img/zoomin.svg" class="icon" title="Zoom in" />
+        </button>
+        <button type="button" class="iconbox" onclick="goZoomNew('-')">
+          <img src="img/zoomout.svg" class="icon" title="Zoom out" />
+        </button>
+        <button class="iconbox" onclick="switchCameraView()">
+          <img src="img/cam_1.svg" class="icon" id="imgClickAndChange" title="Switch camera view" />
+        </button>
+        <button class="iconbox" onclick="resetCamera()">
+          <img src="img/reset.svg" class="icon" title="Reset" />
+        </button>
+      </div>
+
+        <!--AR button with pop up-->
+        <button class="ARbutton" slot="ar-button" id="ARbutton" title="View in your space" onclick="showPopup()">AR</button>
+    
+        <div id="popup" class="popup" onclick="hidePopup()">
+          <div class="popup-content">
+            <span class="close" onclick="hidePopup()">×</span>
+            <div id="qrcode"></div>
+            <p>Scan the code using your phone to start the experience in AR</p>
+            <script>
+              document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                  hidePopup();
+                } else if (event.key === 'Enter') {
+                  hidePopup();
+                }
+              });
+    
+              function hidePopup() {
+                var popup = document.getElementById('popup');
+                popup.style.display = 'none';
+              }
+    
+              function hidePopup() {
+                // Perform submit action or any other desired action
+                console.log('Submit action performed');
+              }
+            </script>
+          </div>
+        </div>
+        <!--AR button with pop up End-->
+    
+        <!-- desktop ui -->
+        <div class="textcontainer">
+          <div class="text" onclick="vis01()">swiss automatic movement</div>
+          <div class="text" onclick="vis02()">Light-catcher™ case</div>
+          <div class="text" onclick="vis03()">150 M water resistant</div>
+          <div class="text" onclick="vis04()">anti-corrosive stainless steel</div>
+          <div class="text" onclick="vis05()">grade a super-luminova</div>
+          <div class="text" onclick="vis06()">genuine leather straps</div>
+        </div>
+
+        <div class="heading" id="heading">
+        <div class="Htext" id="heading01">swiss automatic movement</div>
+        <div class="Htext" id="heading02">Light-catcher™ case</div>
+        <div class="Htext" id="heading03">150 M water resistant</div>
+        <div class="Htext" id="heading04">anti-corrosive stainless steel</div>
+        <div class="Htext" id="heading05">grade a super-luminova</div>
+        <div class="Htext" id="heading06">genuine leather straps</div>
+
+      </div>
+
+        <div class="textcontainericon" id="textcontainericon">
+            <div class="texticon" onclick="vis01(),heading01()"><img src="img/icons/vis01.png"></div>
+            <div class="texticon" onclick="vis02(),heading02()"><img src="img/icons/vis02.png"></div>
+            <div class="texticon" onclick="vis03(),heading03()"><img src="img/icons/vis03.png"></div>
+            <div class="texticon" onclick="vis04(),heading04()"><img src="img/icons/vis04.png"></div>
+            <div class="texticon" onclick="vis05(),heading05()"><img src="img/icons/vis05.png"></div>
+            <div class="texticon" onclick="vis06(),heading06()"><img src="img/icons/vis06.png"></div>
+          </div>
+        <div class="variants-variants">
+            <span class="close2" onclick="hideVariantsStraps()">×</span>
+                <div class="variants-listitem">
+                  <div class="variants-divv3dcontrolsproducttit">
+                    <span class="variants-textstraps"><span>Straps</span></span>
+                  </div>
+                  <div class="variants-divv3dcontrolscolorchip">
+                    <div class="variants-list1">
+  
+  
+                      <div class="variants-listitem1">
+                        <button class="variants-button" id="option1">
+                          <span class="variants-text02">
+                            <span>Brown</span>
+                          </span>
+                          <img
+                            src="img/Brown.jpg"
+                            id="brown"
+                            class="variants-spanv3dcontrolscolorchipcolor"
+                          />
+                        </button>
+                      </div>
+                      <div class="variants-listitem1">
+                        <button class="variants-button" id="option2">
+                          <span class="variants-text02">
+                            <span>Black</span>
+                          </span>
+                          <img
+                            src="img/Black.jpg"
+                            id="black"
+                            class="variants-spanv3dcontrolscolorchipcolor"
+                          />
+                        </button>
+                      </div>
+                      <div class="variants-listitem1">
+                        <button class="variants-button" id="option3">
+                          <span class="variants-text02">
+                            <span>Maroon</span>
+                          </span>
+                          <img
+                            src="img/dbrown.jpg"
+                            id="dbrown"
+                            class="variants-spanv3dcontrolscolorchipcolor"
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+  
+  
+                <div class="variants-listitem3">
+                  <img
+                    src="img/pseudo130-o04a-200h.png"
+                    alt="pseudo130"
+                    class="variants-pseudo3"
+                  />
+                  <div class="variants-divv3dcontrolsproducttit1">
+                    <span class="variants-textvariants"><span>Variants</span></span>
+                  </div>
+                  <div class="variants-divv3dcontrolscolorchip">
+                    <div class="variants-list1">
+                  <div class="variants-listitem1">
+                    <button class="variants-button" id="optionD1">
+                      <span class="variants-text02">
+                        <span>HORIZON</span>
+                      </span>
+                      <img
+                        src="img/blue.jpg"
+                        id="blue"
+                        class="variants-spanv3dcontrolscolorchipcolor"
+                      />
+                    </button>
+                  </div>
+                  <div class="variants-listitem1">
+                    <button class="variants-button" id="optionD2">
+                      <span class="variants-text02">
+                        <span>NOVA</span>
+                      </span>
+                      <img
+                        src="img/green.jpg"
+                        id="green"
+                        class="variants-spanv3dcontrolscolorchipcolor"
+                      />
+                    </button>
+                  </div>
+                  <div class="variants-listitem1">
+                    <button class="variants-button" id="optionD3">
+                      <span class="variants-text02">
+                        <span>EARTH</span>
+                      </span>
+                      <img
+                        src="img/red.jpg"
+                        id="red"
+                        class="variants-spanv3dcontrolscolorchipcolor"
+                      />
+                    </button>
+                  </div>
+  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+  
+      </div>
+  
+        <!--Fullscreen button-->
+        <button onclick="toggleFullscreen(),toggleIcons()" id="expandicon" class="icon2" title="Full Screen">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+         viewBox="0 90 612 612" enable-background="new 0 90 612 612" xml:space="preserve">
+      <path d="M142.7,254.4l21.8-21.8l119.8,119.8l-21.8,21.8L142.7,254.4z M447.6,559.5L327.8,439.6l21.8-21.8
+        l119.8,119.8L447.6,559.5z M164.6,559.5l-21.8-21.8l119.8-119.8l21.8,21.8L164.6,559.5z M447.6,232.5l21.8,21.8L349.5,374.1
+        l-21.8-21.8L447.6,232.5z"/>
+      <path d="M359.2,540.4v30H479V450.6h-29.9v89.9h-89.9V540.4z M160.4,450.4h-27.2v119.8h117.2v-30h-89.9L160.4,450.4
+        L160.4,450.4z M250.2,251.6v-30H133v119.8h30v-89.9h87.1V251.6z M449,341.6h30V221.7H359.2v30H449L449,341.6L449,341.6z"/>
+      </svg>
+      <svg version="1.1" id="Layer_2" style="display: none;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+         viewBox="0 90 612 612" enable-background="new 0 90 612 612" xml:space="preserve">
+      <path d="M464.4,462.5v-30.2H337.9v126.5h30.2v-96.2L464.4,462.5L464.4,462.5z M239,556h30.2V429.5H142.8v30.2H239
+        V556z M145.6,330.6v30.2h126.5V234.3h-30.2v96.2H145.6z M371,237.1h-30.2v126.5h126.5v-30.2H371V237.1z"/>
+      <path d="M131.7,245.3l24.7-24.7l109.9,109.9l-24.6,24.7L131.7,245.3z M456.2,569.8L346.3,459.8l24.7-24.7
+        l109.9,109.9L456.2,569.8z M153.8,569.8l-24.7-24.7L239,435.1l24.7,24.7L153.8,569.8z M456.2,223.3l24.7,24.7L371,358l-24.7-24.7
+        L456.2,223.3z"/>
+      </svg>
+          </button>
+     
+    <script src="script.js"></script>
+    <!-- Loads <model-viewer> for browsers: -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.0.1/model-viewer.min.js"></script>
+  </body>
+</html>

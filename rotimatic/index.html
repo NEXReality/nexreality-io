@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Rotimatic</title>
+    <meta charset="utf-8">
+    <meta name="description" content="rotimatic">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" href="./styles.css?v4" rel="stylesheet"/>
+    <link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap"
+  data-tag="font" />
+  </head>
+  <body>
+    <!-- <model-viewer> HTML element -->
+    <model-viewer src="rotimaker.v2.glb" id="rotimatic" 
+    ar-modes="webxr scene-viewer quick-look" 
+    camera-controls tone-mapping="neutral" 
+    poster="poster.webp?v2" 
+    exposure="1.1"
+    min-field-of-view="8deg"
+    max-field-of-view="50deg"
+    shadow-intensity="1"
+    max-camera-orbit="auto 94deg auto" 
+    camera-orbit="0.369rad  1.418rad 1.034m"
+    camera-target="0.110m 0.179m 0.169m" 
+    field-of-view="39.16deg" 
+    disable-tap
+    interaction-prompt="auto"
+    ondblclick="resetCamera">
+      <button class="Hotspot" slot="hotspot-1" 
+      data-position="0.14541458828565823m 0.3223473201325034m 0.020305113411621667m" 
+      data-orbit="0.369rad  1.418rad 1.034m"
+      data-target="0.110m 0.179m 0.169m"
+      data-field-of-view="39.16deg"
+      data-video="video/01.mp4"
+      data-visibility-attribute="hidden">
+          <div class="HotspotAnnotation">1</div>
+      </button>
+      <button class="Hotspot" slot="hotspot-2" 
+      data-position="-0.06792808451642263m 0.25863757773752993m 0.16970003225165664m" 
+      data-orbit="0.369rad  1.418rad 1.034m"
+      data-target="0.110m 0.179m 0.169m"
+      data-field-of-view="39.16deg"
+      data-video="video/02.mp4"
+      data-visibility-attribute="hidden">
+          <div class="HotspotAnnotation">2</div>
+      </button>
+      <button class="Hotspot" slot="hotspot-3" 
+      data-position="0.22882588971004902m 0.12521428513948007m 0.08531744912970995m" 
+      data-orbit="0.369rad  1.418rad 1.034m"
+      data-target="0.110m 0.179m 0.169m"
+      data-field-of-view="39.16deg"
+      data-video="video/03.mp4"
+      data-visibility-attribute="hidden">
+          <div class="HotspotAnnotation">3</div>
+      </button>
+      <button class="Hotspot" slot="hotspot-4" 
+      data-position="0.0973021151319522m 0.15447819011931452m 0.16969998870206027m" 
+      data-orbit="0.369rad  1.418rad 1.034m"
+      data-target="0.110m 0.179m 0.169m"
+      data-field-of-view="39.16deg"
+      data-video="video/04.mp4"
+      data-visibility-attribute="hidden">
+          <div class="HotspotAnnotation">4</div>
+      </button>
+      <button class="Hotspot" slot="hotspot-5" 
+      data-position="-0.1002930524642941m 0.03912002872006032m 0.1697045968319637m"
+      data-orbit="0.369rad  1.418rad 1.034m"
+      data-target="0.110m 0.179m 0.169m"
+      data-field-of-view="39.16deg"
+      data-video="video/05.mp4"
+       data-visibility-attribute="hidden">
+          <div class="HotspotAnnotation">5</div>
+      </button>
+      <div class="progress-bar hide" slot="progress-bar">
+          <div class="update-bar"></div>
+      </div>
+    </model-viewer> 
+        <!-- desktop ui -->
+        <div class="textcontainer">
+          <div class="text" id="01">Start Roti-making</div>
+          <div class="text" id="02">Curate your Roti</div>
+          <div class="text" id="03">Dough-It-Right</div>
+          <div class="text" id="04">Served fresh & hot, in 90 seconds</div>
+          <div class="text" id="05">Sneak Peak into Rotimatic</div>
+      </div>
+    <!-- Video Modal -->
+<div id="videoModal" class="modal">
+  <div class="modal-content">
+   <span class="close"></span>
+    <video id="modalVideo" width="100%" autoplay>
+      <source id="videoSource" src="" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+    <script src="script.js?v4"></script>
+    <!-- Loads <model-viewer> for browsers: -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+  </body>
+</html>

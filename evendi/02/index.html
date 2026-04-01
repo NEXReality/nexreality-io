@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Quad bike</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Quad bike">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="qrcode.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@^0.160.0/build/three.module.min.js"
+        }
+      }
+    </script>
+      <script type="module" src="https://modelviewer.dev/node_modules/@google/model-viewer/dist/model-viewer-module.min.js"></script>
+      <script type="module" src="https://modelviewer.dev/node_modules/@google/model-viewer-effects/dist/model-viewer-effects.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" data-tag="font">
+    <link type="text/css" href="./styles.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <div class="container">
+    <model-viewer src="V10_blue_v2.glb" ar-scale="fixed" ar ar-modes="webxr scene-viewer quick-look" camera-controls poster="poster.webp" shadow-intensity="1.31" tone-mapping="commerce" exposure="1" shadow-softness="1" min-camera-orbit="auto 0deg auto" max-camera-orbit="auto 97deg auto" camera-orbit="35.65deg 81.33deg 10.3m" field-of-view="30deg">
+      <effect-composer render-mode="quality">
+        <color-grade-effect blend-mode="default" hue="0" saturation="0.26"></color-grade-effect>
+        <ssao-effect blend-mode="default" strength="3"></ssao-effect>
+        <!-- <smaa-effect blend-mode="ultra"></smaa-effect> -->
+      </effect-composer>
+      <div class="progress-bar" slot="progress-bar">
+          <div class="update-bar"></div>
+      </div>
+      <button slot="ar-button" id="ar-button" style="
+      font-family: Montserrat, sans-serif;
+      line-height: 37px;
+      text-align: center;
+      justify-content: center;
+      display: -webkit-flex;
+      font-size: 15px;
+      width: 40px;
+      cursor: pointer;
+      color: #70757a;
+      background-color: #fff;
+      border-radius: 24px;
+      box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.20000000298023224);
+      border-width : 0;
+      position: absolute;
+      top: 10px;
+      right: 10px;">AR</button>
+      <div id="ar-prompt">
+          <img src="ar_hand_prompt.png">
+      </div>
+    </model-viewer></div>
+                 <!--AR button with pop up-->
+                 <button class="ARbutton" slot="ar-button" id="ARbutton" title="View in your space" onclick="showPopup()">AR</button>
+    
+                 <div id="popup" class="popup" onclick="hidePopup()">
+                   <div class="popup-content">
+                     <span class="close" onclick="hidePopup()">×</span>
+                     <div id="qrcode"></div>
+                     <p>Scan the code using your phone to start the experience in AR</p>
+                     <script>
+                       document.addEventListener('keydown', function (event) {
+                         if (event.key === 'Escape') {
+                           hidePopup();
+                         } else if (event.key === 'Enter') {
+                           hidePopup();
+                         }
+                       });
+             
+                       function hidePopup() {
+                         var popup = document.getElementById('popup');
+                         popup.style.display = 'none';
+                       }
+             
+                       function hidePopup() {
+                         // Perform submit action or any other desired action
+                         console.log('Submit action performed');
+                       }
+                     </script>
+                   </div>
+                 </div>
+                 <!--AR button with pop up End-->
+    <script src="script.js"></script>
+    <!-- Loads <model-viewer> for browsers: -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+  </body>
+</html>

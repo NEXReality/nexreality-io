@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>three.js - Frog animation</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link type="text/css" rel="stylesheet" href="https://threejs.org/examples/main.css">
+	<style>
+		.button-container {
+			display: flex;
+			gap: 20px;
+			justify-content: center;
+			margin-bottom: 20px;
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			padding: 10px;
+		}
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+			-webkit-tap-highlight-color: transparent;
+		}
+		.button {
+			background-color: #ffffff;
+			color: white;
+			width: 30px;
+			height: 30px;
+			border: none;
+			cursor: pointer;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			}
+		.button img {
+			width: 25px;
+			height: 25px;
+		}
+		.pause-btn {
+			background-color: #ffffff;
+			color: rgb(0, 0, 0);
+			width: 30px;
+			height: 30px;
+			border: none;
+			cursor: pointer;
+			font-size: 16px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			line-height: 1px;
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+	<!-- Button container at the bottom -->
+	<div class="button-container">
+		<button class="button" id="hideHatButton">
+			<img src="icons/hat.png" alt="Button 1">
+		</button>
+		<button class="button" id="hideNecklaceButton">
+			<img src="icons/necklace.png" alt="Button 2">
+		</button>
+		<button class="button" id="hideShoesButton">
+			<img src="icons/shoes.png" alt="Button 3">
+		</button>
+		<button class="pause-btn" id="playPauseButton">►</button>
+	</div>
+	<script type="importmap">
+			{
+				"imports": {
+					"three": "https://threejs.org/build/three.module.js",
+					"three/addons/": "./jsm/"
+				}
+			}
+		</script>
+	<script type="module" src="script.js"></script>
+</body>
+</html>
+<!--crated by https://nexreality.io/-->

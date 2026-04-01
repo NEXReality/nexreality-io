@@ -1,0 +1,447 @@
+:not(:defined) > * {
+  display: none;
+}
+
+html {
+  height: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+model-viewer {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.popup-content {
+  background-color: #fff;
+  width: 200px;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+  width: 20px;
+  position: absolute;
+  right: 0px;
+  top: -2px;
+  text-decoration: none;
+  text-align: center;
+  opacity: 0.5;
+  padding: 0 0 18px 10px;
+  font-style: normal;
+  font-size: 28px;
+  font-family: Arial, Baskerville, monospace;
+}
+
+.close:hover,
+.close:focus {
+  opacity: 1;
+}
+
+.close:active {
+  top: -2px;
+}
+
+.ARbutton {
+  font-family: Inter;
+  line-height: 37px;
+  text-align: center;
+  font-size: 15px;
+  width: 40px;
+  cursor: pointer;
+  color: #70757a;
+  background-color: #fff;
+  border-radius: 24px;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.20000000298023224);
+  border-width: 0;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.ARbutton:hover {
+  color: #000;
+}
+.progress-bar {
+  display: block;
+  width: 33%;
+  height: 10%;
+  max-height: 2%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  border-radius: 25px;
+  box-shadow: 0px 3px 10px 3px rgba(0, 0, 0, 0.5), 0px 0px 5px 1px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.progress-bar.hide {
+  visibility: hidden;
+  transition: visibility 0.3s;
+}
+
+.update-bar {
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 0%;
+  height: 100%;
+  border-radius: 25px;
+  float: left;
+  transition: width 0.3s;
+}
+
+#ar-button:active {
+  background-color: #E8EAED;
+}
+
+#ar-button:focus {
+  outline: none;
+}
+
+#ar-button:focus-visible {
+  outline: 1px solid #4285f4;
+}
+
+@keyframes circle {
+  from { transform: translateX(-50%) rotate(0deg) translateX(50px) rotate(0deg); }
+  to   { transform: translateX(-50%) rotate(360deg) translateX(50px) rotate(-360deg); }
+}
+
+@keyframes elongate {
+  from { transform: translateX(100px); }
+  to   { transform: translateX(-100px); }
+}
+
+
+model-viewer[ar-status="session-started"] > #ar-prompt {
+  display: block;
+}
+
+
+
+.mainpagectrls-container {
+  width: 100%;
+
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  display: block;
+
+}
+.feature-container {
+  width: 100%;
+
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  display: none;
+
+}
+.mainpagectrls-mainpagectrls {
+  left: 0px;
+  right: 0px;
+  width: 270px;
+  bottom: 0px;
+  height: 48px;
+  display: flex;
+  padding: 0 22px;
+  position: absolute;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.20000000298023224) ;
+  margin-top: auto;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 24px;
+  margin-bottom: 16px;
+  flex-direction: row;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 1);
+}
+.iconbox {
+  width: 32px;
+  height: 48px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-width: 0;
+  background-color: transparent;
+}
+.icon {
+  top: 0px;
+  left: 0px;
+  width: 38px;
+  height: 48px;
+  position: absolute;
+  scale: 1.2;
+  cursor: pointer;
+}
+.feature {
+  width: 32px;
+  height: 48px;
+  left: -8px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+  scale: 1.2;
+  cursor: pointer;
+}
+.listsplit {
+  top: 0px;
+  left: -3px;
+  width: 38px;
+  height: 48px;
+  position: absolute;
+  scale: 1.2;
+}
+.arui{
+  left: 0px;
+  right: 0px;
+  width: 100px;
+  bottom: 0px;
+  height: 48px;
+  display: flex;
+  padding: 0 22px;
+  position: absolute;
+  margin-top: auto;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 24px;
+  margin-bottom: 16px;
+  flex-direction: row;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 1);
+}
+@media(max-width: 479px) {
+  .mainpagectrls-mainpagectrls {
+   
+  }
+}
+
+ 
+.container { 
+  display: flex; 
+  flex-direction: row; 
+  flex-wrap: nowrap; 
+  align-content: center; 
+  justify-content: center; 
+  align-items: center; 
+  height: 100%; 
+  width: 100%;
+} 
+.variants-variants { 
+  display: none; 
+  position: absolute; 
+  left: 0px; 
+  height: 109px; 
+  right: 0px; 
+  bottom: 75px; 
+  margin-left: auto; 
+  margin-right: auto; 
+  align-items: center; 
+  width: 290px; 
+  border-radius: 20px; 
+  padding: 0 6px; 
+  overflow: hidden; 
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.20000000298023224); 
+  background-color: rgba(255, 255, 255, 80%);
+} 
+
+.close2 { 
+  cursor: pointer; 
+  position: absolute; 
+  right: 10px; 
+  top: 3px; 
+  text-decoration: none; 
+  text-align: center; 
+  opacity: 0.5; 
+  font-style: normal; 
+  font-size: 28px; 
+  z-index: 10; 
+  font-family: Arial, Baskerville, monospace;
+} 
+
+.variants-listitem { 
+  width: 368px; 
+  display: flex; 
+  padding: 8px 0 8px; 
+  align-items: flex-start; 
+  flex-shrink: 0; 
+  flex-direction: column;
+} 
+
+.variants-listitem3 { 
+  width: 368px; 
+  display: flex; 
+  padding: 8px 0; 
+  position: relative; 
+  align-items: flex-start; 
+  flex-shrink: 0; 
+  background-color: #fff; 
+  z-index: 5; 
+  top: -63px; 
+  flex-direction: column;
+} 
+
+.variants-divv3dcontrolsproducttit { 
+  width: 368px; 
+  display: flex; 
+  padding: 8px 241px 9.189998626708984px 30px; 
+  position: relative; 
+  align-items: flex-start; 
+  flex-shrink: 0;
+} 
+
+.variants-divv3dcontrolscolorchip { 
+  width: 275px; 
+  height: 58px; 
+  display: flex; 
+  overflow: hidden; 
+  position: relative; 
+  align-items: flex-start; 
+  flex-shrink: 0;
+} 
+
+.variants-pseudo3 { 
+  top: 0px; 
+  left: 10px; 
+  width: 260px; 
+  height: 1px; 
+  position: absolute;
+} 
+
+.variants-divv3dcontrolsproducttit1 { 
+  width: 368px; 
+  display: flex; 
+  padding: 8px 235px 9.189998626708984px 30px; 
+  z-index: 1; 
+  position: relative; 
+  align-items: flex-start; 
+  flex-shrink: 0;
+} 
+
+.variants-textstraps { 
+  color: #70757a; 
+  height: auto; 
+  font-size: 18px; 
+  text-align: left; 
+  font-family: Montserrat, sans-serif; 
+  font-weight: 400; 
+  line-height: 25.200000762939453px; 
+  font-stretch: normal; 
+  text-decoration: none; 
+  cursor: pointer;
+} 
+
+.variants-list1 { 
+  top: 0px; 
+  left: 24px; 
+  width: 306px; 
+  display: flex; 
+  padding: 4px 0 4px; 
+  position: absolute; 
+  flex-wrap: wrap; 
+  align-items: flex-start; 
+  flex-shrink: 0;
+} 
+
+.variants-textvariants { 
+  color: #000; 
+  height: auto; 
+  font-size: 18px; 
+  text-align: left; 
+  font-family: Montserrat, sans-serif; 
+  font-weight: 400; 
+  line-height: 25.200000762939453px; 
+  font-stretch: normal; 
+  text-decoration: none; 
+} 
+
+.variants-listitem1 { 
+  width: 76.5px; 
+  display: flex; 
+  padding: 0 0 15.080001831054688px; 
+  align-items: flex-start; 
+  flex-shrink: 0;
+} 
+
+.variants-button { 
+  display: flex; 
+  padding: 39px 11.800000190734863px 8.080001831054688px 11.699999809265137px; 
+  position: relative; 
+  flex-grow: 1; 
+  align-items: flex-start; 
+  justify-content: center; 
+  border: none; 
+  background: none; 
+  cursor: pointer;
+} 
+
+.variants-text02 { 
+  color: rgba(0, 0, 0, 1); 
+  height: auto; 
+  font-size: 12px; 
+  text-align: center; 
+  font-family: Montserrat, sans-serif; 
+  font-weight: 400; 
+  line-height: 15.079999923706055px; 
+  font-stretch: normal; 
+  text-decoration: none;
+} 
+
+.variants-spanv3dcontrolscolorchipcolor { 
+  top: 4px; 
+  left: 25.25px; 
+  width: 26px; 
+  height: 26px; 
+  position: absolute; 
+  border-color: rgba(0, 0, 0, 0.1); 
+  border-style: solid; 
+  border-width: 1px; 
+  border-radius: 14px;
+} 
+
+
+/* These were inline style tags. Uses id+class to override almost everything */
+#style-IwhaK.style-IwhaK {  
+ opacity: 1.1;  
+  display: block;  
+}  
+#brown.style-DmAE5 {  
+ border-color: black;  
+}  
+#blue.style-awVGf {  
+ border-color: black;  
+}  

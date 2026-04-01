@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+Disallow: /3dgs
+Disallow: /bwc
+Disallow: /cdnjs.cloudflare.com
+Disallow: /demo_01
+Disallow: /demo_02
+Disallow: /demo_03
+Disallow: /demo_04
+Disallow: /demo_05
+Disallow: /demo_06
+Disallow: /demo_07
+Disallow: /demo_08
+Disallow: /demo_11
+Disallow: /demo_12
+Disallow: /evendi
+Disallow: /frog-animation
+Disallow: /ice_sculptures
+Disallow: /mediapipe
+Disallow: /nexreality.io
+Disallow: /rotimatic
+Disallow: /shadespot
+Disallow: /unpkg.com
+Disallow: /use.typekit.net
+
+Sitemap: https://nexreality.io/sitemap.xml

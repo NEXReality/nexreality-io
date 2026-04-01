@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Ice sculpture - NEX Reality</title>
+  <meta charset="utf-8">
+  <meta name="Demo of Ice sculpture using XR" content="Ice sculpture - NEX Reality">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link type="text/css" href="./styles.css" rel="stylesheet" />
+  <script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript" src="qrcode.js"></script>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+    data-tag="font" />
+</head>
+
+<body>
+  <!-- <model-viewer> HTML element -->
+  <model-viewer src="42_01.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls
+    shadow-intensity="1" tone-mapping="neutral" exposure="1" field-of-view="30deg"
+    camera-orbit="-14.49deg 81.66deg 2.525m"
+    camera-target="0.01m 0.3868m -0.03156m"
+    min-field-of-view="20deg"
+    max-field-of-view="70deg"
+    ar-scale="fixed">
+    <button slot="ar-button" id="ar-button" style="
+          font-family: Inter;
+          line-height: 37px;
+          text-align: center;
+          font-size: 15px;
+          width: 40px;
+          cursor: pointer;
+          color: #70757a;
+          background-color: #fff;
+          border-radius: 24px;
+          box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+          border-width : 0;
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          font-weight: 400;
+      display: flex;
+      justify-content: center;
+      align-items: center;">AR</button>
+  </model-viewer>
+  <!--AR button with pop up-->
+  <button class="ARbutton" id="ARbutton" title="View in your space">AR</button>
+
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <span class="close" id="closePopup">×</span>
+      <div id="qrcode"></div>
+      <p>Scan the code using your phone to start the experience in AR</p>
+    </div>
+  </div>
+
+  <!--Fullscreen button-->
+  <button id="expandicon" class="icon" title="Full Screen">
+    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+      x="0px" y="0px" viewBox="0 90 612 612" enable-background="new 0 90 612 612" xml:space="preserve">
+      <path d="M142.7,254.4l21.8-21.8l119.8,119.8l-21.8,21.8L142.7,254.4z M447.6,559.5L327.8,439.6l21.8-21.8
+	l119.8,119.8L447.6,559.5z M164.6,559.5l-21.8-21.8l119.8-119.8l21.8,21.8L164.6,559.5z M447.6,232.5l21.8,21.8L349.5,374.1
+	l-21.8-21.8L447.6,232.5z" />
+      <path
+        d="M359.2,540.4v30H479V450.6h-29.9v89.9h-89.9V540.4z M160.4,450.4h-27.2v119.8h117.2v-30h-89.9L160.4,450.4
+	L160.4,450.4z M250.2,251.6v-30H133v119.8h30v-89.9h87.1V251.6z M449,341.6h30V221.7H359.2v30H449L449,341.6L449,341.6z" />
+    </svg>
+    <svg version="1.1" id="Layer_2" style="display: none;" xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 90 612 612"
+      enable-background="new 0 90 612 612" xml:space="preserve">
+      <path d="M464.4,462.5v-30.2H337.9v126.5h30.2v-96.2L464.4,462.5L464.4,462.5z M239,556h30.2V429.5H142.8v30.2H239
+	V556z M145.6,330.6v30.2h126.5V234.3h-30.2v96.2H145.6z M371,237.1h-30.2v126.5h126.5v-30.2H371V237.1z" />
+      <path d="M131.7,245.3l24.7-24.7l109.9,109.9l-24.6,24.7L131.7,245.3z M456.2,569.8L346.3,459.8l24.7-24.7
+	l109.9,109.9L456.2,569.8z M153.8,569.8l-24.7-24.7L239,435.1l24.7,24.7L153.8,569.8z M456.2,223.3l24.7,24.7L371,358l-24.7-24.7
+	L456.2,223.3z" />
+    </svg>
+  </button>
+  <script src="script.js"></script>
+  <!-- Loads <model-viewer> for browsers: -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+</body>
+
+</html>

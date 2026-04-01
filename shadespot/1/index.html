@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>shadespot</title>
+    <meta charset="utf-8">
+    <meta name="description" content="shadespot">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" href="./styles.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <!-- <model-viewer> HTML element -->
+    <model-viewer src="1_1.gltf" id="shadespot" environment-image="neutral" ar-modes="webxr scene-viewer quick-look"
+    camera-controls tone-mapping="commerce"
+    poster="poster.webp"
+    camera-orbit="408.5deg 74.21deg 22.81m"
+    camera-target="-0.05m 1.72m -0.23m"
+    min-field-of-view="1deg"
+    max-field-of-view="45deg"
+    field-of-view="30deg"
+    shadow-softness="0.05"
+    shadow-intensity="1"
+    ondblclick="resetCamera()">
+
+      <button class="Hotspot" slot="hotspot-1"
+        data-visibility-attribute="visible"
+        data-position="0.015224875111143454m 3.398356290181645m -5.153955940761903m" 
+        data-orbit="-75.6deg 85.97deg 13.43mm"
+        data-target="0.86m 3.43m -5.15m">
+          <div class="HotspotAnnotation">B</div>
+      </button><button class="Hotspot" slot="hotspot-2" 
+      data-position="1.4316589956752006m 3.4371098695405378m -5.153956410537591m" 
+      data-orbit="72.47deg 80.48deg 12.92m"
+      data-target="1.51m 3.39m -5.13m"
+      data-visibility-attribute="visible">
+          <div class="HotspotAnnotation">C</div>
+      </button><button class="Hotspot" slot="hotspot-3" 
+      data-position="-0.05381828873643357m 3.402441353894924m 4.693573146777322m" 
+      data-orbit="91.27deg 86.36deg 12.37m"
+      data-target="0.35m 3.43m 4.66m" 
+      data-visibility-attribute="visible">
+          <div class="HotspotAnnotation">A</div>
+      </button>
+      <div class="progress-bar hide" slot="progress-bar">
+          <div class="update-bar"></div>
+      </div>
+    </model-viewer>  
+    <script src="script.js"></script>
+    <!-- Loads <model-viewer> for browsers: -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,321 @@
+:not(:defined) > * {
+  display: none;
+}
+
+html {
+  height: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+model-viewer {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
+.Hotspot {
+  background: rgb(255, 255, 255, 0.7);
+  border-radius: 32px;
+  border: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 24px;
+  width: 24px;
+  position: relative; /* Ensure the annotation is positioned relative to this button */
+}
+
+.HotspotAnnotation {
+  /* background: #fff; */
+  /* border-radius: 4px; */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); */
+  color: rgba(0, 0, 0);
+  font-family: Futura, Helvetica Neue, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  position: absolute;
+  top: 49%;
+  left: 32%;
+  transform: translate(-50%, -50%); /* Center the annotation */
+  /* padding: 0.5em 1em; */
+  max-width: 128px;
+  overflow-wrap: break-word;
+  white-space: nowrap; /* Prevent the annotation from breaking to a new line */
+}
+.Hotspot:not([data-visible]) {
+  display: none;
+  background: transparent;
+  border: 4px solid #fff;
+  box-shadow: none;
+  height: 32px;
+  pointer-events: none;
+  width: 32px;
+}
+
+.Hotspot:focus {
+  border: 4px solid #e76d0f;
+  height: 32px;
+  outline: none;
+  width: 32px;
+}
+
+.Hotspot > * {
+  opacity: 1;
+  transform: translateY(-50%);
+}
+
+.Hotspot:not([data-visible]) > * {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(calc(-50% + 4px));
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+
+.progress-bar {
+  display: block;
+  width: 33%;
+  height: 10%;
+  max-height: 2%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  border-radius: 25px;
+  box-shadow: 0px 3px 10px 3px rgba(0, 0, 0, 0.5), 0px 0px 5px 1px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.progress-bar.hide {
+  visibility: hidden;
+  transition: visibility 0.3s;
+}
+
+.update-bar {
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 0%;
+  height: 100%;
+  border-radius: 25px;
+  float: left;
+  transition: width 0.3s;
+}
+
+#ar-button {
+  background-image: url(ar_icon.png);
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  background-position: 12px 50%;
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  bottom: 16px;
+  padding: 0px 16px 0px 40px;
+  font-family: Roboto Regular, Helvetica Neue, sans-serif;
+  font-size: 14px;
+  color:#4285f4;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 18px;
+  border: 1px solid #DADCE0;
+}
+
+#ar-button:active {
+  background-color: #E8EAED;
+}
+
+#ar-button:focus {
+  outline: none;
+}
+
+#ar-button:focus-visible {
+  outline: 1px solid #4285f4;
+}
+
+@keyframes circle {
+  from { transform: translateX(-50%) rotate(0deg) translateX(50px) rotate(0deg); }
+  to   { transform: translateX(-50%) rotate(360deg) translateX(50px) rotate(-360deg); }
+}
+
+@keyframes elongate {
+  from { transform: translateX(100px); }
+  to   { transform: translateX(-100px); }
+}
+
+model-viewer > #ar-prompt {
+  position: absolute;
+  left: 50%;
+  bottom: 60px;
+  animation: elongate 2s infinite ease-in-out alternate;
+  display: none;
+}
+
+model-viewer[ar-status="session-started"] > #ar-prompt {
+  display: block;
+}
+
+model-viewer > #ar-prompt > img {
+  animation: circle 4s linear infinite;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeInOut 0.5s ease-in-out;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.modal.visible {
+  display: flex;
+  opacity: 1;
+}
+
+.modal.fade-out {
+  animation: fadeOut 0.5s ease-in-out;
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.modal-content {
+  position: relative;
+  margin: auto;
+  padding: 0;
+  max-height: 100%; /* Ensures the modal content doesn't exceed 80% of the viewport height */
+  overflow: hidden;
+}
+body.modal-open {
+  overflow: hidden;
+}
+
+video {
+  width: 100%;
+  height: auto;
+  max-height: 100%; /* Ensure video doesn't exceed the modal content height */
+}
+
+.close {
+  position: absolute;
+  z-index: 10;
+  right: 10px;
+  top: 10px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+ /* background-color: #fff;  White background */
+  border-radius: 50%; /* Circular shape */
+  width: 30px; /* Set width */
+  height: 30px; /* Set height */
+  display: flex; /* Center the text */
+  align-items: center; /* Center the text vertically */
+  justify-content: center; /* Center the text horizontally */
+  cursor: pointer; /* Pointer cursor */
+}
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.textcontainer {
+ /* width: 20%; */
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  padding: 0 16px;
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.text {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 130%;
+  text-align: center;
+  color: #4a4a4a;
+  font-family: Montserrat;
+  align-content: center;
+  background: #f1f3f4;
+  border-radius: 8px;
+  box-sizing: border-box;
+  cursor: pointer;
+  margin-bottom: 8px;
+  min-height: 40px;
+  padding: 5px 16px;
+  max-width: 200px;
+}
+
+.text:hover {
+  background: #dadce0;
+  color: #000;
+}
+
+.text:focus {
+  background: #dadce0;
+  color: #000;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .textcontainer {
+    flex-direction: row;
+    bottom: 10px;
+    right: auto;
+    top: auto;
+    padding: 0;
+    transform: translateY(0);
+  }
+
+  /* Style for the first row of buttons on mobile */
+  .textcontainer .text:nth-child(-n+3) {
+    order: 1; /* Ensure first three buttons appear first in column */
+  }
+
+  /* Style for the second row of buttons on mobile */
+  .textcontainer .text:nth-child(n+4) {
+    order: 2; /* Ensure last two buttons appear after first row */
+  }
+  .text {
+    margin: 3px;
+    font-size: 14px;
+    padding: 0 05px 0 05px;
+  }
+}

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Galaxy Z Flip4</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Galaxy Z Flip4">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link type="text/css" href="./skin_adv/mainpagectrls.css" rel="stylesheet" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+    data-tag="font" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+    data-tag="font" />
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K54TMT7Z');</script>
+<!-- End Google Tag Manager -->
+</head>
+<body>
+  <!-- <model-viewer> HTML element -->
+  <model-viewer ondblclick="playAnimation('status_toggle','once')" id="GalaxyZFlip4" poster="poster.webp" camera-controls
+    camera-orbit="0deg 90deg 105%" min-camera-orbit="auto 0deg .4m" max-camera-orbit="auto 180deg auto"
+    min-field-of-view="15deg" field-of-view="30deg" src="galaxy_flip4_3.glb" ar alt="A 3D model of Galaxy Z Flip4">
+
+    <!-- AR ui-->
+    <div class="arui">
+      <button title="Colors" class="iconbox" type="button" onclick="showVariantsStraps()">
+        <img src="skin_adv/img/color.svg" class="icon" />
+      </button>
+      <button class="iconbox" type="button" onclick="playAnimation('status_toggle','once')">
+        <img src="skin_adv/img/flip_close.svg" class="icon" id="flipicon" onclick="changeflipicon()" title="Fold" />
+      </button>
+    </div>
+    <!-- AR ui end-->
+    <button slot="ar-button" id="ar-button" style="
+        font-family: Inter;
+      	line-height: 37px;
+      	text-align: center;
+      	font-size: 15px;
+        width: 40px;
+      	cursor: pointer;
+      	color: #70757a;
+      	background-color: #fff;
+      	border-radius: 24px;
+        box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.20000000298023224);
+        border-width : 0;
+        position: absolute;
+        top: 10px;
+        right: 10px;">AR</button>
+
+<div class="variants-variants">
+  <span class="close2" onclick="hideVariantsStraps()">×</span>
+                   <div class="variants-divv3dcontrolsproducttit1">
+          <span class="variants-textvariants"><span>Colours</span></span>
+        </div>
+        <div class="variants-divv3dcontrolscolorchip">
+          <div class="variants-list1">
+        <div class="variants-listitem1">
+          <button class="variants-button" id="optionD1" onclick="changeModelSrc('galaxy_flip4_3.glb')">
+            <span class="variants-text02">
+              <span>Purple</span>
+            </span>
+            <img
+              src="skin_adv/img/blue.jpg"
+              id="blue"
+              class="variants-spanv3dcontrolscolorchipcolor"
+            />
+          </button>
+        </div>
+        <div class="variants-listitem1">
+          <button class="variants-button" id="optionD2" onclick="changeModelSrc('galaxy_flip4_3_graphite.glb')">
+            <span class="variants-text02">
+              <span>Graphite</span>
+            </span>
+            <img
+              src="skin_adv/img/green.jpg"
+              id="green"
+              class="variants-spanv3dcontrolscolorchipcolor"
+            />
+          </button>
+        </div>
+        <div class="variants-listitem1">
+          <button class="variants-button" id="optionD3" onclick="changeModelSrc('galaxy_flip4_3_gold.glb')">
+            <span class="variants-text02">
+              <span>Pink Gold</span>
+            </span>
+            <img
+              src="skin_adv/img/red.jpg"
+              id="red"
+              class="variants-spanv3dcontrolscolorchipcolor"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </model-viewer>
+
+  <!--AR button with pop up-->
+  <button class="ARbutton" id="ARbutton" title="View in your space" onclick="showPopup()">AR</button>
+
+  <div id="popup" class="popup" onclick="hidePopup()">
+    <div class="popup-content">
+      <span class="close" onclick="hidePopup()">×</span>
+      <div id="qrcode"></div>
+      <p>Scan the code using your phone to start the experience in AR</p>
+      <script>
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape') {
+            hidePopup();
+          } else if (event.key === 'Enter') {
+            hidePopup();
+          }
+        });
+
+        function hidePopup() {
+          var popup = document.getElementById('popup');
+          popup.style.display = 'none';
+        }
+
+        function hidePopup() {
+          // Perform submit action or any other desired action
+          console.log('Submit action performed');
+        }
+      </script>
+    </div>
+  </div>
+  <!--AR button with pop up End-->
+
+  <div>
+    <link href="./skin_adv/mainpagectrls.css" rel="stylesheet" />
+
+    <div id="explorectrls" class="mainpagectrls-container">
+      <div class="mainpagectrls-mainpagectrls">
+        <button title="Colors" class="iconbox" type="button" onclick="showVariantsStraps()">
+          <img src="skin_adv/img/color.svg" class="icon" />
+        </button>
+        <button class="iconbox" type="button" onclick="goZoomNew('+')">
+          <img src="skin_adv/img/zoomin.svg" class="icon" title="Zoom in" />
+        </button>
+        <button type="button" class="iconbox" onclick="goZoomNew('-')">
+          <img src="skin_adv/img/zoomout.svg" class="icon" title="Zoom out" />
+        </button>
+        <button class="iconbox" onclick="switchCameraView()">
+          <img src="skin_adv/img/cam_1.svg" class="icon" id="imgClickAndChange" title="Switch camera view" />
+        </button>
+        <button class="iconbox" onclick="resetCamera()">
+          <img src="skin_adv/img/reset.svg" class="icon" title="Reset" />
+        </button>
+        <!--<button class="iconbox">
+          <img src="skin_adv/img/dimension.svg" title="Dimensions" class="icon" />
+        </button>-->
+        <button class="iconbox" onclick="toggleFullscreen()">
+          <img src="skin_adv/img/expand.svg" id="expandicon" class="icon" title="Full Screen" onclick="changeImage()" />
+        </button>
+        <div class="iconbox">
+          <img src="skin_adv/img/listsplit.svg" class="listsplit" />
+        </div>
+        <button class="iconbox" onclick="toggleVisibility()">
+          <img src="skin_adv/img/features.svg" id="" class="feature" title="Explore features" />
+        </button>
+      </div>
+    </div>
+    <!-- Feature ui -->
+    <div id="featurectrls" class="feature-container">
+      <div class="mainpagectrls-mainpagectrls">
+        <button class="iconbox" type="button" onclick="playAnimation('status_toggle','once')">
+          <img src="skin_adv/img/flip_close.svg" class="icon" id="flipicon" onclick="changeflipicon()" title="Fold" />
+        </button>
+        <button id="covervideo" class="iconbox" type="button" onclick="loadCovervideo()">
+          <img src="skin_adv/img/cover.svg" class="icon" title="Cover Screen" />
+        </button>
+        <button type="button" class="iconbox" onclick="flexDisplay()">
+          <img src="skin_adv/img/scroll.svg" class="icon" title="Flex Display" />
+        </button>
+        <button class="iconbox">
+          <img src="skin_adv/img/camera.svg" class="icon" id="" title="Camera" onclick="cameraHighlight()" />
+        </button>
+        <button class="iconbox">
+          <img src="skin_adv/img/quick.svg" class="icon" title="Quick shot" onclick="quickShot()" />
+        </button>
+        <button class="iconbox" onclick="flexDisplayHalf()">
+          <img src="skin_adv/img/flex.svg" title="Flex Mode" class="icon" />
+        </button>
+        <button class="iconbox" onclick="hyperlapse()">
+          <img src="skin_adv/img/hyperlapse.svg" id="" class="icon" title="Hyperlapse" />
+        </button>
+        <div class="iconbox">
+          <img src="skin_adv/img/listsplit.svg" class="listsplit" />
+        </div>
+        <button class="iconbox" onclick="toggleVisibility('explorectrls')">
+          <img src="skin_adv/img/back.svg" class="feature" title="Explore Device" />
+        </button>
+      </div>
+    </div>
+
+
+  <!-- Loads <model-viewer> for browsers: -->
+  <script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript" src="qrcode.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.0.1/model-viewer.min.js"></script>
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K54TMT7Z"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+</body>
+</html>

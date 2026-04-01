@@ -1,0 +1,1 @@
+Cannot find "/dist/model-viewer-legacy.js" in @google/model-viewer@3.1.1
