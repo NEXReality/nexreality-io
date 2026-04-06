@@ -4910,7 +4910,7 @@ only screen and (min-device-pixel-ratio: 1.5) and (min-width: 1020px) {
 	margin: 10px;
 }
 .icon-instagram {
-	content: url(https://nexreality.io/wp-content/uploads/2023/03/ig.svg);
+	content: url(../../../../uploads/2023/03/ig.svg);
 	width: 16px;
     height: 16px;
     margin-right: 7px;
