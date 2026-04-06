@@ -1599,7 +1599,9 @@ div.wpcf7 .placeheld {
 		margin-right: 0px;
 		background: #fff;
 		box-shadow: 2px 7px 30px rgba(0, 0, 0, 0.2);
-		opacity: 0
+		opacity: 0;
+		z-index: 10;
+		pointer-events: auto
 	}
 	.home,
 	.page-template-page-lab {
@@ -2596,7 +2598,8 @@ div.wpcf7 .placeheld {
 		height: 200%;
 		width: 100%;
 		background: rgba(255, 0, 0, 0.3);
-		background: #fff
+		background: #fff;
+		pointer-events: none
 	}
 
 	.logo-element-background {
@@ -4205,13 +4208,18 @@ body {
 	-moz-osx-font-smoothing: grayscale
 }
 
+/* Nav must stay visible even when Adobe Typekit rejects the host (e.g. GitHub Pages). */
+.frontend .nav a,
+.frontend .nav-wrapper a {
+	opacity: 1
+}
+
+/* Headings / article links: show when fonts load, or when Typekit falls back to wf-inactive. */
 .frontend h1,
 .frontend h2,
 .frontend h3,
 .frontend h4,
 .frontend h5,
-.frontend .nav a,
-.frontend .nav-wrapper a,
 .frontend .entry-content a {
 	opacity: 0
 }
@@ -4221,9 +4229,13 @@ body {
 .wf-active .frontend h3,
 .wf-active .frontend h4,
 .wf-active .frontend h5,
-.wf-active .frontend .nav a,
-.wf-active .frontend .nav-wrapper a,
-.wf-active .frontend .entry-content a {
+.wf-active .frontend .entry-content a,
+.wf-inactive .frontend h1,
+.wf-inactive .frontend h2,
+.wf-inactive .frontend h3,
+.wf-inactive .frontend h4,
+.wf-inactive .frontend h5,
+.wf-inactive .frontend .entry-content a {
 	opacity: 1
 }
 
