@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Configurator - Porsche 911</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; }
+    .viewer-container {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .viewer-placeholder {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: #18181b;
+    }
+    .viewer-container canvas { display: block; width: 100%; height: 100%; }
+
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 0 16px;
+      pointer-events: none;
+    }
+    .bottom-bar > * { pointer-events: auto; }
+    .bottom-bar > div {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .bottom-bar > div .label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.7);
+      margin-right: 4px;
+    }
+    .circle-options {
+      display: flex;
+      gap: 8px;
+    }
+    .circle-option {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.5);
+      background: rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    }
+    .circle-option:hover {
+      border-color: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.15);
+    }
+    .circle-option.selected {
+      border-color: #fff;
+      background: rgba(255,255,255,0.35);
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+    }
+    .circle-option:active { transform: scale(0.96); }
+    .circle-option.color-0 { background: #4a4a4e; }
+    .circle-option.color-0.selected { background: #5c5c60; border-color: #fff; }
+    .circle-option.color-1 { background: #97001B; }
+    .circle-option.color-1.selected { background: #a81a38; border-color: #fff; }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.181.2/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.181.2/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="viewer-container">
+    <span class="viewer-placeholder"></span>
+  </div>
+
+  <div class="bottom-bar">
+    <div data-group="color">
+      <span class="label">Color</span>
+      <div class="circle-options">
+        <button type="button" class="circle-option color-0 selected" data-index="0" title="Default" aria-label="Color default"></button>
+        <button type="button" class="circle-option color-1" data-index="1" title="97132E" aria-label="Color 97132E"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script type="module" src="threeD-script.js"></script>
+</body>
+</html>
