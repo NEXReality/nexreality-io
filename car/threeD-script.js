@@ -10,7 +10,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
 
 // Path to the Porsche model (relative to car-configurator folder)
 const CAR_MODEL_PATH = 'Porsche_911_Carrera_GTS_2025.glb';
@@ -48,6 +48,39 @@ class CarViewer {
 
         this.carBodyDefaultColor = null;
         this.currentColorIndex = 0;
+        this.loadingEl = document.getElementById('viewer-loading');
+        this.modelLoadProgress = 0;
+        this.envLoadProgress = 0;
+    }
+
+    setLoadingProgress(percent, label) {
+        if (!this.loadingEl) return;
+        var bar = this.loadingEl.querySelector('.viewer-loading-bar');
+        var text = this.loadingEl.querySelector('.viewer-loading-text');
+        if (bar) bar.style.width = Math.max(0, Math.min(100, percent)) + '%';
+        if (text && label) text.textContent = label;
+    }
+
+    updateCombinedProgress(label) {
+        var pct = (this.modelLoadProgress + this.envLoadProgress) / 2;
+        this.setLoadingProgress(pct, label || 'Loading…');
+    }
+
+    hideLoading() {
+        if (!this.loadingEl) return;
+        this.loadingEl.classList.add('is-hidden');
+        window.setTimeout(function () {
+            if (this.loadingEl && this.loadingEl.parentNode) {
+                this.loadingEl.parentNode.removeChild(this.loadingEl);
+            }
+        }.bind(this), 400);
+    }
+
+    revealViewer() {
+        if (this.renderer && this.renderer.domElement) {
+            this.renderer.domElement.style.visibility = 'visible';
+        }
+        this.hideLoading();
     }
 
     init() {
@@ -64,7 +97,7 @@ class CarViewer {
 
         this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-        this.renderer.setPixelRatio(window.devicePixelRatio);
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.renderer.toneMapping = THREE.NoToneMapping;
@@ -72,6 +105,7 @@ class CarViewer {
 
         const placeholder = this.container.querySelector('.viewer-placeholder');
         if (placeholder) placeholder.remove();
+        this.renderer.domElement.style.visibility = 'hidden';
         this.container.appendChild(this.renderer.domElement);
 
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -82,9 +116,8 @@ class CarViewer {
         this.controls.target.copy(this.initialControlsTarget);
 
         this.createLights();
-        this.loadEnvironmentMap();
         this.createGroundPlane();
-        this.loadModel();
+        this.loadSceneAssets();
         this.animate();
         this.setupResize();
         this.setupCameraReset();
@@ -111,22 +144,98 @@ class CarViewer {
         this.lightsContainer.add(this.backLight);
     }
 
-    loadEnvironmentMap() {
-        var basePath = getBasePath();
+    loadEnvironmentMapAsync(basePath) {
+        var self = this;
         var envPath = basePath + 'env.hdr';
-        var pmremGenerator = new THREE.PMREMGenerator(this.renderer);
-        pmremGenerator.compileEquirectangularShader();
+        return new Promise(function (resolve) {
+            var pmremGenerator = new THREE.PMREMGenerator(self.renderer);
+            pmremGenerator.compileEquirectangularShader();
 
-        new RGBELoader().load(envPath, (hdrEquirect) => {
-            hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
-            this.scene.environment = pmremGenerator.fromEquirectangular(hdrEquirect).texture;
-            this.scene.environmentIntensity = 1.0;
-            hdrEquirect.dispose();
-            pmremGenerator.dispose();
-            debugLog('Environment map loaded:', envPath);
-        }, undefined, (err) => {
-            console.warn('env.hdr failed:', err);
-            pmremGenerator.dispose();
+            new HDRLoader().load(envPath, function (hdrEquirect) {
+                hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+                self.scene.environment = pmremGenerator.fromEquirectangular(hdrEquirect).texture;
+                self.scene.environmentIntensity = 1.0;
+                hdrEquirect.dispose();
+                pmremGenerator.dispose();
+                self.envLoadProgress = 100;
+                self.updateCombinedProgress('Loading environment…');
+                debugLog('Environment map loaded:', envPath);
+                resolve();
+            }, function (progress) {
+                if (progress.total) {
+                    self.envLoadProgress = (100 * progress.loaded) / progress.total;
+                    self.updateCombinedProgress('Loading environment…');
+                }
+            }, function (err) {
+                console.warn('env.hdr failed:', err);
+                pmremGenerator.dispose();
+                self.envLoadProgress = 100;
+                resolve();
+            });
+        });
+    }
+
+    loadModelAsync(basePath) {
+        var self = this;
+        var modelPath = basePath + CAR_MODEL_PATH;
+        return new Promise(function (resolve, reject) {
+            self.gltfLoader.load(modelPath, resolve, function (progress) {
+                if (progress.total) {
+                    self.modelLoadProgress = (100 * progress.loaded) / progress.total;
+                    self.updateCombinedProgress('Loading model…');
+                    debugLog('Loading:', self.modelLoadProgress.toFixed(0) + '%');
+                }
+            }, reject);
+        });
+    }
+
+    applyLoadedModel(gltf) {
+        if (this.current3DObject) {
+            this.scene.remove(this.current3DObject);
+            this.current3DObject = null;
+        }
+
+        this.current3DObject = gltf.scene;
+
+        const box = new THREE.Box3().setFromObject(this.current3DObject);
+        const center = box.getCenter(new THREE.Vector3());
+        const size = box.getSize(new THREE.Vector3());
+
+        const maxDim = Math.max(size.x, size.y, size.z);
+        const scale = 3 / maxDim;
+        this.current3DObject.scale.setScalar(scale);
+        this.current3DObject.position.sub(center.multiplyScalar(scale));
+
+        this.scene.add(this.current3DObject);
+        this.current3DObject.traverse(function (child) {
+            if (child.isMesh && child.material) {
+                var mat = child.material;
+                if ((mat.name || '').toLowerCase() === 'carbody' && (mat.isMeshStandardMaterial || mat.isMeshPhysicalMaterial)) {
+                    this.carBodyDefaultColor = mat.color.clone();
+                    debugLog('Stored carBody default color:', '#' + mat.color.getHexString());
+                }
+            }
+        }.bind(this));
+        this.setCarColor(this.currentColorIndex);
+        debugLog('Car model loaded and added to scene');
+    }
+
+    loadSceneAssets() {
+        var basePath = getBasePath();
+        this.modelLoadProgress = 0;
+        this.envLoadProgress = 0;
+        this.setLoadingProgress(0, 'Loading…');
+
+        var self = this;
+        Promise.all([
+            this.loadModelAsync(basePath),
+            this.loadEnvironmentMapAsync(basePath)
+        ]).then(function (results) {
+            self.applyLoadedModel(results[0]);
+            self.revealViewer();
+        }).catch(function (error) {
+            self.setLoadingProgress(0, 'Failed to load');
+            console.error('Error loading scene:', error);
         });
     }
 
@@ -173,53 +282,6 @@ class CarViewer {
         this.groundPlane.rotation.x = -Math.PI / 2;
         this.groundPlane.position.set(0, -0.36, 0);
         this.scene.add(this.groundPlane);
-    }
-
-    loadModel() {
-        const basePath = getBasePath();
-        const modelPath = basePath + CAR_MODEL_PATH;
-
-        if (this.current3DObject) {
-            this.scene.remove(this.current3DObject);
-            this.current3DObject = null;
-        }
-
-        this.gltfLoader.load(
-            modelPath,
-            (gltf) => {
-                this.current3DObject = gltf.scene;
-
-                const box = new THREE.Box3().setFromObject(this.current3DObject);
-                const center = box.getCenter(new THREE.Vector3());
-                const size = box.getSize(new THREE.Vector3());
-
-                const maxDim = Math.max(size.x, size.y, size.z);
-                const scale = 3 / maxDim;
-                this.current3DObject.scale.setScalar(scale);
-                this.current3DObject.position.sub(center.multiplyScalar(scale));
-
-                this.scene.add(this.current3DObject);
-                this.current3DObject.traverse(function (child) {
-                    if (child.isMesh && child.material) {
-                        var mat = child.material;
-                        if ((mat.name || '').toLowerCase() === 'carbody' && (mat.isMeshStandardMaterial || mat.isMeshPhysicalMaterial)) {
-                            this.carBodyDefaultColor = mat.color.clone();
-                            debugLog('Stored carBody default color:', '#' + mat.color.getHexString());
-                        }
-                    }
-                }.bind(this));
-                this.setCarColor(this.currentColorIndex);
-                debugLog('Car model loaded and added to scene');
-            },
-            (progress) => {
-                if (progress.total) {
-                    debugLog('Loading:', ((100 * progress.loaded) / progress.total).toFixed(0) + '%');
-                }
-            },
-            (error) => {
-                console.error('Error loading car model:', error);
-            }
-        );
     }
 
     animate() {
